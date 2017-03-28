@@ -1,0 +1,60 @@
+<div class="container">
+
+  <div class="row" *ngIf="artist">
+    <div class="col-md-3 text-center">
+      <img [src]="artist.images | nophoto" class="img-thumbnail img-circle">
+      <br>
+    </div>
+
+    <div class="col-md-9">
+      <h3>{{ artist.name }}</h3>
+      <hr>
+      <a [href]="artist.external_urls?.spotify"
+      class="btn btn-outline-success">
+      View Website
+    </a>
+    <a [routerLink]="['/search']"
+    class="btn btn-outline-danger">
+    Back
+  </a>
+</div>
+</div>
+
+
+<div class="row" *ngIf="tracks">
+  <h3>Top of {{ artist.name }}</h3>
+  <hr>
+  <div class="table-responsive">
+
+    <table class="table table-inverse table-hover">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Photo</td>
+          <td>Track</td>
+          <td>Popular</td>
+          <td>Preview</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let track of tracks; let i = index;">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <img [src]="track.album?.images | nophoto">
+          </td>
+          <td>{{ track.name }}</td>
+          <td>{{ track.popularity }}%</td>
+          <td>
+            <!-- <audio controls>
+              <source [src]="track.preview_url">
+                Your browser is too old!
+              </audio> -->
+              <iframe [src]="track.uri | domseguro:'https://embed.spotify.com/?uri='" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>

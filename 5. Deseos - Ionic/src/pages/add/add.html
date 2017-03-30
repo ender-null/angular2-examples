@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ listname | placeholder:'Unnamed list' }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>List name</ion-label>
+      <ion-input type="text" [(ngModel)]="listname" name="listname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Item</ion-label>
+      <ion-input type="text" [(ngModel)]="itemname" name="itemname" (keyup.enter)="addItem()"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div padding>
+    <button ion-button icon-left block outline color="secondary" (click)="addItem()">
+      <ion-icon name="add"></ion-icon>
+      Add item
+    </button>
+  </div>
+
+
+  <ion-list *ngIf="items.length > 0">
+    <ion-list>
+      <ion-list-header>
+        {{ items.length }} added items
+      </ion-list-header>
+      <ion-item *ngFor="let item of items; let i = index">
+        <button ion-button color="dark" clear>
+          {{ item.name }}
+        </button>
+
+        <button ion-button outline icon-left item-right color="danger" (click)="removeItem(i)">
+          <ion-icon name="trash"></ion-icon>
+          Remove
+        </button>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+<div padding *ngIf="items.length > 0">
+  <button ion-button icon-left block color="secondary" (click)="saveList()">
+    <ion-icon name="add-circle"></ion-icon>
+    Add list
+  </button>
+</div>
+
+</ion-content>

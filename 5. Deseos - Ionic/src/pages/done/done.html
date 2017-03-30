@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Done</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid text-center class="hint" *ngIf="(todo.lists | done:true).length == 0">
+    <ion-row>
+      <ion-col col-12>
+        <ion-icon name="sunny"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <h2>Empty</h2>
+        <p>Good job!</p>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+
+    <ion-list *ngFor="let list of todo.lists | done:true; let i = index">
+      <ion-list-header (click)="listDetails(list, i)">
+        {{ list.name }}
+        <ion-note item-right>
+          {{ list.items.length }} items
+        </ion-note>
+      </ion-list-header>
+      <ion-item *ngFor="let item of list.items | slice:0:2" (click)="check(list, item)">
+        <ion-label>{{ item.name }}</ion-label>
+        <ion-checkbox [checked]="item.done" (click)="check(list, item)"></ion-checkbox>
+      </ion-item>
+
+      <button ion-item *ngIf="list.items.length > 2" (click)="listDetails(list, i)">
+        ...
+      </button>
+    </ion-list>
+  </ion-content>
